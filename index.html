@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Flixora - Nonton Anime & Donghua Sub Indo Terlengkap</title>
+    <meta name="description" content="Flixora adalah platform streaming untuk nonton anime dan donghua subtitle Indonesia terlengkap. Temukan serial terbaru, on-going, dan tamat dengan kualitas HD.">
+    <meta name="keywords" content="Flixora, nonton anime, streaming anime, nonton donghua, dracin, drakor, anime sub indo, donghua sub indo, anime terbaru, streaming online, anime on-going">
+    
+    <link rel="icon" href="icon.png" type="image/png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#3B82F6">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --bg-color: #FFFFFF;
+            --surface-color: #F9FAFB;
+            --primary-text-color: #111827;
+            --secondary-text-color: #6B7280;
+            --border-color: #E5E7EB;
+            --accent-color: #3B82F6;
+            --accent-glow: rgba(59, 130, 246, 0.4);
+            --font-family: 'Manrope', sans-serif;
+        }
+
+        body.dark-mode {
+            --bg-color: #111827;
+            --surface-color: #1F2937;
+            --primary-text-color: #F9FAFB;
+            --secondary-text-color: #9CA3AF;
+            --border-color: #374151;
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--surface-color);
+            color: var(--primary-text-color);
+            font-family: var(--font-family);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        input, textarea {
+            user-select: auto;
+            -webkit-user-select: auto;
+        }
+        
+        img {
+            pointer-events: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        *:focus, *:focus-visible {
+            outline: none;
+        }
+        .action-button:focus-visible, .hero-btn:focus-visible {
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+        #search-input:focus {
+             border-color: var(--accent-color);
+             box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+        .request-btn:focus-visible, .thumbnail-card:focus-visible {
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .main-header {
+            background-color: var(--bg-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            height: 42px; 
+        }
+        
+        .header-main-view, .header-search-view {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+            background-color: var(--bg-color);
+        }
+        
+        .logo { font-size: 1.8rem; font-weight: 800; text-decoration: none; color: var(--primary-text-color); flex-shrink: 0; }
+        .logo span { color: var(--accent-color); }
+        
+        .nav-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+        .action-button { display: flex; align-items: center; justify-content: center; cursor: pointer; background: none; border: none; border-radius: 50%; padding: 5px; color: var(--primary-text-color); }
+
+        .desktop-nav { display: none; }
+        @media (min-width: 992px) {
+            .desktop-nav { display: block; margin: 0 auto; } 
+            .mobile-menu-toggle { display: none !important; } 
+        }
+
+        .nav-menu { list-style: none; display: flex; gap: 30px; align-items: center; }
+        .nav-item { position: relative; }
+        .nav-link { text-decoration: none; color: var(--secondary-text-color); font-weight: 600; font-size: 1rem; padding: 10px 5px; transition: color 0.2s ease; display: flex; align-items: center; gap: 5px; }
+        .nav-link:hover { color: var(--primary-text-color); }
+        .dropdown { position: absolute; top: 120%; left: 50%; transform: translateX(-50%); width: 200px; background-color: var(--bg-color); border: 1px solid var(--border-color); border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.08); padding: 10px; list-style: none; opacity: 0; visibility: hidden; transition: all 0.2s ease; }
+        .nav-item:hover .dropdown { opacity: 1; visibility: visible; }
+        .dropdown-item a { display: block; padding: 12px 15px; text-decoration: none; color: var(--secondary-text-color); font-weight: 500; border-radius: 8px; transition: all 0.2s; }
+        .dropdown-item a:hover { background-color: var(--surface-color); color: var(--primary-text-color); }
+
+        .header-search-view {
+            transform: scale(1.1);
+            opacity: 0;
+            pointer-events: none;
+            gap: 15px;
+        }
+
+        #search-input { width: 100%; flex-grow: 1; padding: 10px 15px; font-size: 1rem; border-radius: 25px; border: 1px solid var(--border-color); background-color: var(--surface-color); color: var(--primary-text-color); }
+        
+        .navbar.search-active .header-main-view { transform: scale(0.9); opacity: 0; pointer-events: none; }
+        .navbar.search-active .header-search-view { transform: scale(1); opacity: 1; pointer-events: auto; }
+
+        .mobile-nav { 
+            display: none; 
+            position: absolute; 
+            top: calc(100% + 1px);
+            left: 0; 
+            width: 100%;
+            background-color: var(--bg-color); 
+            border-bottom: 1px solid var(--border-color); 
+            padding: 0;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+        }
+        .mobile-nav.active { display: block; }
+        .mobile-nav .nav-menu { flex-direction: column; gap: 0; }
+        .mobile-nav .nav-item { width: 100%; }
+        .mobile-nav .nav-link { 
+            color: var(--secondary-text-color); 
+            font-weight: 600; 
+            padding: 20px 5%;
+            width: 100%; 
+            display: block; 
+            border-bottom: 1px solid var(--border-color);
+        }
+         .mobile-nav .nav-item:last-child .nav-link { border-bottom: none; }
+
+        main { padding: 40px 0; }
+
+        .hero-section {
+            text-align: center;
+            padding: 60px 0;
+            margin-bottom: 40px;
+        }
+        
+        .hero-banner {
+            max-width: 450px;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--primary-text-color);
+        }
+        .hero-title span {
+            color: var(--accent-color);
+        }
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--secondary-text-color);
+            max-width: 600px;
+            margin: 0 auto 30px auto;
+        }
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border: none;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .hero-btn.primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        .hero-btn.primary:hover {
+            background-color: #2563EB;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--accent-glow);
+        }
+        .hero-btn.secondary {
+            background-color: var(--surface-color);
+            color: var(--primary-text-color);
+            border: 1px solid var(--border-color);
+        }
+        .hero-btn.secondary:hover {
+            background-color: var(--border-color);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2rem; }
+            .hero-section { padding: 40px 0; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-btn {
+                padding: 10px 16px;
+                font-size: 0.9rem; 
+                gap: 6px;
+            }
+        }
+        
+        /* --- STYLE BANNER BARU --- */
+        .slider-section {
+            margin-bottom: 60px;
+        }
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            cursor: grab;
+        }
+        .slider-wrapper {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .slide {
+            flex: 1 0 100%;
+            position: relative;
+            aspect-ratio: 16 / 9;
+            background-size: cover;
+            background-position: center;
+            color: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 70px;
+            text-align: center;
+            text-decoration: none; /* Tambahan untuk tag <a> */
+        }
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: inherit;
+            background-size: cover;
+            background-position: center;
+            filter: blur(5px) brightness(0.6);
+            z-index: 1;
+            transition: filter 0.3s ease; /* Transisi hover */
+        }
+        .slide:hover::before {
+             filter: blur(2px) brightness(0.7); /* Efek hover */
+        }
+        .slide-title {
+            position: relative;
+            z-index: 2;
+            font-size: 2.5rem;
+            font-weight: 800;
+            padding: 0px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.7);
+        }
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+            background-color: rgba(0, 0, 0, 0.4);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease;
+        }
+        .slider-btn:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .slider-btn.prev-btn {
+            left: 15px;
+        }
+        .slider-btn.next-btn {
+            right: 15px;
+        }
+        @media (max-width: 768px) {
+            .slide-title { font-size: 1.8rem; }
+            .slider-btn { width: 38px; height: 38px; font-size: 1rem; }
+        }
+        @media (max-width: 480px) {
+            .slide-title { font-size: 1.2rem; }
+        }
+        /* --- AKHIR STYLE BANNER BARU --- */
+        
+        #donghua-section, #random-section {
+             scroll-margin-top: 90px;
+        }
+
+        .section-title-wrapper {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 60px 0 25px 0;
+        }
+        
+         #search-results-container .section-title-wrapper {
+        margin-top: 0px;   
+        margin-bottom: 30px;
+         }
+        .section-title-wrapper::before,
+        .section-title-wrapper::after {
+            content: '';
+            flex: 1;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .section-title-wrapper h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 0 20px;
+            color: var(--primary-text-color);
+        }
+        
+        .section-description {
+            text-align: center;
+            color: var(--secondary-text-color);
+            margin: -15px auto 30px auto;
+            font-size: 0.9rem;
+            max-width: 500px;
+        }
+        
+        .content-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            position: relative; /* Diperlukan untuk no-content-message */
+            min-height: 50px; /* Memberi tinggi minimum agar pesan terlihat */
+        }
+        @media (min-width: 768px) { .content-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; } }
+        @media (min-width: 1024px) { .content-grid { grid-template-columns: repeat(6, 1fr); } }
+        
+        .no-content-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--secondary-text-color);
+            font-style: italic;
+        }
+
+        .thumbnail-card { background-color: var(--bg-color); border-radius: 12px; overflow: hidden; position: relative; text-decoration: none; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease; }
+        .thumbnail-card:hover { transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.1); z-index: 10; cursor: pointer; }
+
+        .thumbnail-image {
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            object-fit: cover;
+            display: block;
+            filter: blur(0.7px);
+            transition: filter 0.3s ease-in-out;
+        }
+        .thumbnail-card:hover .thumbnail-image {
+            filter: blur(0);
+        }
+
+        .card-overlay { position: absolute; bottom: 0; left: 0; width: 100%; padding: 2.5rem 1rem 1rem 1rem; background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%); pointer-events: none; }
+        .card-title { font-size: 0.7rem; font-weight: 700; color: #FFFFFF; }
+        
+        #no-results-message { 
+            display: none; 
+            text-align: center; 
+            padding: 50px 0; 
+            color: var(--secondary-text-color);
+            grid-column: 1 / -1;
+        }
+        #no-results-message p { margin: 10px 0 20px 0; }
+        
+        .request-btn { display: inline-block; background-color: var(--accent-color); color: white; border: none; padding: 12px 25px; font-size: 1rem; font-weight: 600; border-radius: 25px; cursor: pointer; transition: background-color 0.2s; text-decoration: none; }
+        .request-btn:hover { background-color: #2563EB; }
+
+        .load-more-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+        .load-more-btn {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            color: var(--primary-text-color);
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .load-more-btn:hover {
+            background-color: var(--border-color);
+        }
+        .load-more-btn:focus-visible {
+             box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        #scroll-to-top-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            z-index: 1000;
+        }
+        #scroll-to-top-btn.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .main-footer {
+            padding: 40px 0 20px 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--secondary-text-color);
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        #adblock-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 99999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 20px;
+        }
+        .adblock-modal {
+            max-width: 450px;
+        }
+        .adblock-icon {
+            width: 80px;
+            height: 80px;
+            stroke-width: 1.5;
+            margin-bottom: 20px;
+            color: #F87171;
+        }
+        .adblock-modal h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .adblock-modal p {
+            font-size: 1.1rem;
+            color: #E5E7EB;
+            line-height: 1.6;
+        }
+
+        /* --- Style Notifikasi Offline --- */
+        .offline-notification {
+            position: fixed; /* Tetap di layar meskipun di-scroll */
+            bottom: -100px; /* Posisi awal, tersembunyi di bawah layar */
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #2c3e50; /* Warna gelap yang netral */
+            color: white;
+            padding: 14px 22px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 10000; /* Pastikan selalu di paling atas */
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animasi muncul */
+        }
+
+        .offline-notification.visible {
+            bottom: 20px; /* Posisi saat terlihat */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="adblock-overlay">
+        <div class="adblock-modal">
+            <i data-lucide="shield-off" class="adblock-icon"></i>
+            <h2>AdBlock Terdeteksi</h2>
+            <p>Situs ini didukung oleh iklan. Mohon matikan pemblokir iklan Anda untuk melanjutkan.</p>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="navbar" id="navbar">
+                <div class="header-main-view">
+                    <div class="logo">Flix<span>ora</span></div>
+                    <nav class="desktop-nav">
+                        <ul class="nav-menu">
+                            <li class="nav-item"><a href="#" class="nav-link active">Home</a></li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">Browse <i data-lucide="chevron-down" style="width:16px;"></i></a>
+                                <ul class="dropdown">
+                                    <li class="dropdown-item"><a href="#">Anime</a></li>
+                                    <li class="dropdown-item"><a href="#">Donghua</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a href="#" class="nav-link">My List</a></li>
+                        </ul>
+                    </nav>
+                    <div class="nav-right">
+                        <a href="#" target="_blank" class="action-button" aria-label="Join Telegram"><i data-lucide="send"></i></a>
+                        <button class="action-button" id="theme-toggle-btn" aria-label="Toggle Theme">
+                            <i class="icon-sun" data-lucide="sun"></i>
+                            <i class="icon-moon" data-lucide="moon" style="display: none;"></i>
+                        </button>
+                        <button class="action-button" id="search-open-btn" aria-label="Open Search"><i data-lucide="search"></i></button>
+                        <button class="action-button mobile-menu-toggle" aria-label="Open Menu"><i data-lucide="menu"></i></button>
+                    </div>
+                </div>
+                <div class="header-search-view">
+                    <button class="action-button" id="search-close-btn" aria-label="Close Search"><i data-lucide="arrow-left"></i></button>
+                    <input type="text" id="search-input" placeholder="Cari judul anime atau donghua...">
+                </div>
+            </div>
+        </div>
+        <div class="mobile-nav" id="mobile-menu">
+             <ul class="nav-menu">
+                <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Anime</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Donghua</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">My List</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="hero-section">
+                
+                <img src="https://flixora.my.id/flixora.png" alt="Flixora Banner" class="hero-banner">
+
+                <h1 class="hero-title">Dunia Anime & Donghua di Flix<span>ora</span></h1>
+                <p class="hero-description">Jelajahi ribuan judul anime dan donghua subtitle Indonesia terlengkap, dari yang terbaru hingga yang klasik.</p>
+                
+                <div class="hero-buttons">
+                    <a href="#" target="_blank" class="hero-btn secondary">
+                        <i data-lucide="send"></i>
+                        Gabung Telegram
+                    </a>
+                    <a href="#donghua-section" class="hero-btn primary">
+                        <i data-lucide="play"></i>
+                        Mulai Nonton
+                    </a>
+                </div>
+            </section>
+            
+            <section class="slider-section">
+                <div class="slider-container">
+                    <div class="slider-wrapper">
+                        <a href="donghua/battle-through-the-heavens-s5/" class="slide" style="background-image: url('donghua/battle-through-the-heavens-s5/gambar.jpg');">
+                            <h2 class="slide-title">Battle Through The Heavens S5</h2>
+                        </a>
+                        <a href="donghua/renegade-immortal-xian-ni/" class="slide" style="background-image: url('donghua/renegade-immortal-xian-ni/gambar.jpg');">
+                            <h2 class="slide-title">Renegade Immortal (Xian Ni)</h2>
+                        </a>
+                        <a href="donghua/tales-of-herding-gods/" class="slide" style="background-image: url('donghua/tales-of-herding-gods/gambar.jpg');">
+                            <h2 class="slide-title">Tales of Herding Gods</h2>
+                        </a>
+                    </div>
+                    <button class="slider-btn prev-btn" aria-label="Previous Slide"><i class="fas fa-chevron-left"></i></button>
+                    <button class="slider-btn next-btn" aria-label="Next Slide"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+            <section id="donghua-section">
+                <div class="section-title-wrapper">
+                    <h2>Donghua</h2>
+                </div>
+                <div class="content-grid" id="donghua-grid">
+               </div>
+               <div class="load-more-container" id="load-more-donghua-container">
+                    <button class="load-more-btn" id="load-more-donghua-btn">Lihat Lainnya</button>
+                </div>
+            </section>
+            
+            <section id="random-section">
+                <div class="section-title-wrapper">
+                    <h2>Random Flixora</h2>
+                </div>
+                <p class="section-description">Film, bioskop, drakor, dracin, dll</p>
+                <div class="content-grid" id="random-grid">
+                       </div>
+               <div class="load-more-container" id="load-more-random-container">
+                    <button class="load-more-btn" id="load-more-random-btn">Lihat Lainnya</button>
+                </div>
+            </section>
+            <div id="search-results-container" style="display: none;">
+                 <div class="section-title-wrapper">
+                    <h2>Hasil Pencarian</h2>
+                </div>
+                <div class="content-grid" id="search-grid"></div>
+                <div id="no-results-message">
+                    <h3>Tidak ada hasil yang ditemukan</h3>
+                    <p>Tidak dapat menemukan yang Anda cari?</p>
+                    <a href="requests" class="request-btn">Request Konten</a>
+                </div>
+            </div>
+
+            <div id="card-database" style="display: none;">
+                <div class="thumbnail-card" data-title="Juedai Shuang Jiao: Subtitle Indonesia" data-category="donghua"><a href="donghua/juedai-shuang-jiao-subtitle-indonesia/"><img src="donghua/juedai-shuang-jiao-subtitle-indonesia/gambar.jpg" alt="Flixora" class="thumbnail-image"></a><div class="card-overlay"><h3 class="card-title">Juedai Shuang Jiao: Subtitle Indonesia</h3></div></div>
+                <div class="thumbnail-card" data-title="battle through the heavens S5" data-category="donghua"><a href="donghua/battle-through-the-heavens-s5/"><img src="donghua/battle-through-the-heavens-s5/gambar.jpg" alt="Flixora" class="thumbnail-image"></a><div class="card-overlay"><h3 class="card-title">battle through the heavens S5</h3></div></div>
+                <div class="thumbnail-card" data-title="Tales of Herding Gods" data-category="donghua"><a href="donghua/tales-of-herding-gods/"><img src="donghua/tales-of-herding-gods/gambar.jpg" alt="Flixora" class="thumbnail-image"></a><div class="card-overlay"><h3 class="card-title">Tales of Herding Gods</h3></div></div>
+                <div class="thumbnail-card" data-title="Renegade Immortal (Xian Ni)" data-category="donghua"><a href="donghua/renegade-immortal-xian-ni/"><img src="donghua/renegade-immortal-xian-ni/gambar.jpg" alt="Flixora" class="thumbnail-image"></a><div class="card-overlay"><h3 class="card-title">Renegade Immortal (Xian Ni)</h3></div></div>
+                <div class="thumbnail-card" data-title="Renegade Immortal (Xian Ni)" data-category="random"><a href="donghua/renegade-immortal-xian-ni/"><img src="donghua/renegade-immortal-xian-ni/gambar.jpg" alt="Flixora" class="thumbnail-image"></a><div class="card-overlay"><h3 class="card-title">Renegade Immortal (Xian Ni)</h3></div></div>
+            </div>
+
+        </div>
+    </main>
+    
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; <span id="copyright-year"></span> <span id="copyright-name"></span>. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <button id="scroll-to-top-btn" aria-label="Scroll to top">
+        <i data-lucide="arrow-up"></i>
+    </button>
+    
+    <div id="offline-notification" class="offline-notification">
+        <i class="fas fa-wifi"></i> Anda sedang offline.
+    </div>
+    
+    <script>
+        lucide.createIcons();
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            /*
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js')
+                        .then(registration => {
+                            console.log('Service Worker berhasil didaftarkan:', registration);
+                        })
+                        .catch(error => {
+                            console.log('Pendaftaran Service Worker gagal:', error);
+                        });
+                });
+            }
+            */
+
+            // --- Deklarasi Variabel Global ---
+            const navbar = document.getElementById('navbar');
+            const searchInput = document.getElementById('search-input');
+            const searchOpenBtn = document.getElementById('search-open-btn');
+            const searchCloseBtn = document.getElementById('search-close-btn');
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const themeToggleBtn = document.getElementById('theme-toggle-btn');
+            const sunIcon = themeToggleBtn.querySelector('.icon-sun');
+            const moonIcon = themeToggleBtn.querySelector('.icon-moon');
+            const yearSpan = document.getElementById('copyright-year');
+            const nameSpan = document.getElementById('copyright-name');
+            const logoName = document.querySelector('.logo').textContent;
+            const scrollToTopBtn = document.getElementById('scroll-to-top-btn');
+            const heroSection = document.querySelector('.hero-section');
+            const adBlockOverlay = document.getElementById('adblock-overlay');
+            
+            // --- Variabel Konten ---
+            const allCardElements = Array.from(document.querySelectorAll('#card-database .thumbnail-card'));
+            const searchResultsContainer = document.getElementById('search-results-container');
+            const searchGrid = document.getElementById('search-grid');
+            const noResultsMessage = document.getElementById('no-results-message');
+
+            const sections = {
+                donghua: {
+                    sectionEl: document.getElementById('donghua-section'),
+                    gridEl: document.getElementById('donghua-grid'),
+                    loadMoreBtn: document.getElementById('load-more-donghua-btn'),
+                    loadMoreContainer: document.getElementById('load-more-donghua-container'),
+                    cards: allCardElements.filter(card => card.dataset.category === 'donghua'),
+                    visibleCount: 6
+                },
+                random: {
+                    sectionEl: document.getElementById('random-section'),
+                    gridEl: document.getElementById('random-grid'),
+                    loadMoreBtn: document.getElementById('load-more-random-btn'),
+                    loadMoreContainer: document.getElementById('load-more-random-container'),
+                    cards: allCardElements.filter(card => card.dataset.category === 'random'), // Akan kosong
+                    visibleCount: 6
+                }
+            };
+            
+            // --- Fitur Keamanan ---
+            document.addEventListener('contextmenu', event => event.preventDefault());
+
+            let isAdBlockerDetected = false;
+            const showAdBlockerMessage = () => {
+                if (isAdBlockerDetected) return; 
+                isAdBlockerDetected = true;
+                adBlockOverlay.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            };
+            
+            const checkAdBlock = () => {
+                // Skrip Adblock hanya berjalan saat online
+                if (navigator.onLine) {
+                    fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", { method: 'HEAD', mode: 'no-cors' }))
+                    .catch(err => { showAdBlockerMessage(); });
+                    
+                    const bait = document.createElement('div');
+                    bait.innerHTML = '&nbsp;';
+                    bait.className = 'ad adsbox banner-ad text-ad ad-container';
+                    bait.style.cssText = 'position:absolute; left:-9999px; height:1px; width:1px; visibility:hidden; pointer-events:none;';
+                    document.body.appendChild(bait);
+                    requestAnimationFrame(() => {
+                        if (bait.offsetHeight === 0 || bait.offsetParent === null) { showAdBlockerMessage(); }
+                        if(document.body.contains(bait)) { document.body.removeChild(bait); }
+                    });
+                }
+            };
+            checkAdBlock();
+
+            // --- FUNGSI BANNER SLIDER BARU ---
+            const sliderContainer = document.querySelector('.slider-container');
+            if (sliderContainer) {
+                const sliderWrapper = sliderContainer.querySelector('.slider-wrapper');
+                const slides = sliderWrapper.querySelectorAll('.slide');
+                const prevBtn = sliderContainer.querySelector('.prev-btn');
+                const nextBtn = sliderContainer.querySelector('.next-btn');
+                const slideCount = slides.length;
+
+                let currentIndex = 0;
+                let isDragging = false;
+                let startPos = 0;
+                let currentTranslate = 0;
+                let prevTranslate = 0;
+                let animationID;
+
+                if (slideCount <= 1) {
+                    prevBtn.style.display = 'none';
+                    nextBtn.style.display = 'none';
+                }
+
+                const getPositionX = (event) => event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+                const setSliderPosition = () => sliderWrapper.style.transform = `translateX(${currentTranslate}px)`;
+                
+                const dragStart = (e) => {
+                    isDragging = true;
+                    startPos = getPositionX(e);
+                    sliderWrapper.style.transition = 'none';
+                    animationID = requestAnimationFrame(animation);
+                };
+                
+                const dragMove = (e) => {
+                    if (isDragging) {
+                        const currentPosition = getPositionX(e);
+                        currentTranslate = prevTranslate + currentPosition - startPos;
+                    }
+                };
+
+                const dragEnd = (e) => {
+                    const movedBy = currentTranslate - prevTranslate;
+                    if (Math.abs(movedBy) > 5) {
+                        e.preventDefault();
+                    }
+
+                    isDragging = false;
+                    cancelAnimationFrame(animationID);
+                    sliderContainer.style.cursor = 'grab';
+
+                    if (movedBy < -100 && currentIndex < slideCount - 1) currentIndex++;
+                    if (movedBy > 100 && currentIndex > 0) currentIndex--;
+
+                    goToSlide(currentIndex);
+                };
+                
+                function animation() {
+                    setSliderPosition();
+                    if (isDragging) requestAnimationFrame(animation);
+                }
+                
+                function goToSlide(index) {
+                    sliderWrapper.style.transition = 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+                    currentTranslate = index * -sliderContainer.clientWidth;
+                    prevTranslate = currentTranslate;
+                    setSliderPosition();
+                }
+
+                nextBtn.addEventListener('click', () => {
+                    currentIndex = (currentIndex + 1) % slideCount;
+                    goToSlide(currentIndex);
+                });
+
+                prevBtn.addEventListener('click', () => {
+                    currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+                    goToSlide(currentIndex);
+                });
+
+                sliderContainer.addEventListener('mousedown', dragStart);
+                sliderContainer.addEventListener('touchstart', dragStart, { passive: true });
+                sliderContainer.addEventListener('mousemove', dragMove);
+                sliderContainer.addEventListener('touchmove', dragMove, { passive: true });
+                sliderContainer.addEventListener('mouseup', dragEnd);
+                sliderContainer.addEventListener('touchend', dragEnd);
+                sliderContainer.addEventListener('mouseleave', () => { if (isDragging) dragEnd(); });
+                sliderContainer.addEventListener('click', dragEnd, true);
+                
+                window.addEventListener('resize', () => goToSlide(currentIndex));
+            }
+            // --- AKHIR FUNGSI BANNER SLIDER BARU ---
+
+            // --- Fungsi Inti ---
+
+            const renderCards = (gridEl, cards, count, noContentMsgEl) => {
+                gridEl.innerHTML = '';
+                if (cards.length === 0) {
+                     gridEl.innerHTML = '<p class="no-content-message">Comingsoon 𓂂ɞ̴̶̷ ₃ ɞ̴̶̷𓂂</p>';
+                       return;
+                }
+                cards.slice(0, count).forEach(card => {
+                    gridEl.appendChild(card.cloneNode(true));
+                });
+            };
+            
+            const manageSection = (category) => {
+                const s = sections[category];
+                renderCards(s.gridEl, s.cards, s.visibleCount);
+                if (s.visibleCount >= s.cards.length || s.cards.length === 0) {
+                    s.loadMoreContainer.style.display = 'none';
+                } else {
+                    s.loadMoreContainer.style.display = 'block';
+                }
+            };
+
+            const manageLayout = () => {
+                const query = searchInput.value.toLowerCase().trim();
+                const bannerSection = document.querySelector('.slider-section');
+                
+                if (query) {
+                    heroSection.style.display = 'none';
+                    if (bannerSection) bannerSection.style.display = 'none';
+                    Object.values(sections).forEach(s => {
+                        s.sectionEl.style.display = 'none';
+                        s.loadMoreContainer.style.display = 'none';
+                    });
+                    searchResultsContainer.style.display = 'block';
+                    const filteredCards = allCardElements.filter(card => 
+                        card.dataset.title.toLowerCase().includes(query)
+                    );
+                    renderCards(searchGrid, filteredCards, filteredCards.length);
+                    noResultsMessage.style.display = filteredCards.length === 0 ? 'block' : 'none';
+                } else {
+                    heroSection.style.display = 'block';
+                    if (bannerSection) bannerSection.style.display = 'block';
+                    searchResultsContainer.style.display = 'none';
+                    Object.keys(sections).forEach(cat => {
+                         sections[cat].sectionEl.style.display = 'block';
+                         manageSection(cat);
+                    });
+                }
+            };
+
+            const initializePage = () => {
+                 Object.keys(sections).forEach(manageSection);
+                 manageLayout();
+            };
+
+            // --- Event Listeners ---
+
+            Object.keys(sections).forEach(cat => {
+                const s = sections[cat];
+                s.loadMoreBtn.addEventListener('click', () => {
+                    s.visibleCount += 6;
+                    manageSection(cat);
+                });
+            });
+
+            searchInput.addEventListener('input', manageLayout);
+
+            yearSpan.textContent = new Date().getFullYear();
+            nameSpan.textContent = logoName;
+
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                    sunIcon.style.display = 'none';
+                    moonIcon.style.display = 'block';
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    sunIcon.style.display = 'block';
+                    moonIcon.style.display = 'none';
+                }
+            };
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            applyTheme(savedTheme);
+            themeToggleBtn.addEventListener('click', () => {
+                const currentTheme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+                const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                applyTheme(newTheme);
+                localStorage.setItem('theme', newTheme);
+            });
+
+            searchOpenBtn.addEventListener('click', () => {
+                 navbar.classList.add('search-active');
+                 searchInput.focus();
+            });
+            searchCloseBtn.addEventListener('click', () => {
+                navbar.classList.remove('search-active');
+                searchInput.value = '';
+                manageLayout(); 
+            });
+
+            mobileMenuToggle.addEventListener('click', () => mobileMenu.classList.toggle('active'));
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 400) {
+                    scrollToTopBtn.classList.add('visible');
+                } else {
+                    scrollToTopBtn.classList.remove('visible');
+                }
+            });
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+            
+            // --- LOGIKA NOTIFIKASI OFFLINE BARU ---
+            const offlineNotif = document.getElementById('offline-notification');
+
+            const showOfflineNotification = () => {
+                if (offlineNotif) offlineNotif.classList.add('visible');
+            };
+
+            const hideOfflineNotification = () => {
+                if (offlineNotif) offlineNotif.classList.remove('visible');
+            };
+
+            if (!navigator.onLine) {
+                showOfflineNotification();
+            }
+
+            window.addEventListener('offline', showOfflineNotification);
+            window.addEventListener('online', hideOfflineNotification);
+            // --- AKHIR LOGIKA NOTIFIKASI OFFLINE ---
+            
+            initializePage();
+        });
+    </script>
+</body>
+</html>
